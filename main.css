@@ -39,7 +39,7 @@ body {
   min-width:320px;
   height:100%;
   width:100%;
-  background:green;
+  background:black;
 }
 
 /* yes, this is actually necessary... mobile safari... */
