@@ -6,8 +6,6 @@ git config --global user.email "nobody@nobody.org"
 git config --global user.name "Travis CI"
 
 # deploy
-cd examples
-bower install
 rm -rf .git
 git init
 git add .
