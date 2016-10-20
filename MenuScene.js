@@ -272,8 +272,8 @@ function MenuScene(){
   function addVirtualScreen(choices){
     return function(addToScope,lookup,removeFromScope){
 
-      var zRestingOffset = -0.5;
-      var zAnimOffset = 1.0;
+      var zRestingOffset = -0.8;
+      var zAnimOffset = 0.25;
 
       var models = Pregenerated(choices.length);
 
