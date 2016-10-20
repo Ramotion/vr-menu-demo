@@ -1,4 +1,4 @@
-[![header](http://i.imgur.com/382S6Zv.png)](http://ramotion.github.io/vr-menu-demo/main.html)
+[![header](http://i.imgur.com/Qfdbkep.png)](http://ramotion.github.io/vr-menu-demo/main.html)
 
 ## WebVR Menu Demo
 
