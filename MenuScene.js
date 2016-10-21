@@ -180,7 +180,7 @@ function MenuScene(){
         new THREE.MeshBasicMaterial( {
           color: interpColor(0.0,royalBlue,0xffffff)
         , transparent:true
-        , opacity:0.5
+        , opacity:0.0
         } );
 
 
@@ -190,6 +190,7 @@ function MenuScene(){
       geometry.computeBoundingSphere();
 
       var m = texPlane(0.6,0.6,tex);
+      m.material.opacity = 0.0;
 
       m.position.x = geometry.boundingSphere.center.x;
       m.position.y = geometry.boundingSphere.center.y;
@@ -202,8 +203,9 @@ function MenuScene(){
 
       addToScope(StaticObj3d(m));
 
-      addToScope(animate(200,function(p){
+      addToScope(animate(350,function(p){
         material.opacity = interp(p,0.0,0.8);
+        m.material.opacity = interp(p,0.0,0.8);
       }));
 
       var result;
@@ -212,11 +214,12 @@ function MenuScene(){
         obj:[mesh],
         setOpacity:function(x){
           material.opacity = x;
+          m.material.opacity = x;
         },handle:function(_){
 
           addToScope(focusFire(800,mesh,function(p,i){
             material.opacity = i ? 0.3 : 0.8;
-            var s = -0.35 * p + 1;
+            var s = -0.25 * p + 1;
             m.scale.set(s,s,s);
           },v));
 
@@ -226,16 +229,17 @@ function MenuScene(){
 
             var start = Date.now();
 
-            addToScope(animate(400,function(p){
-              var s = interp(p,0.85,1.0,Bezier(.33,3.78,.79,1.93));
+            addToScope(animate(350,function(p){
+              var s = interp(p,0.75,1.0,Bezier(.33,1.78,.79,1.33));
               m.scale.set(s,s,s);
             }));
 
             return function(_){
 
-              addToScope(animate(200,function(p){
+              addToScope(animate(150,function(p){
                 var s = interp(p,1.0,0.2);
                 m.scale.set(s,s,s);
+                m.material.opacity = interp(p,1.0,0.0);
               }));
 
               return function(_){
@@ -246,6 +250,7 @@ function MenuScene(){
         },
         update:function(){
           m.position.z = zdiff + mesh.position.z;
+          m.material.opacity = mesh.material.opacity;
           if(result !== undefined)return result
         }
       }
@@ -256,7 +261,7 @@ function MenuScene(){
     return function(addToScope,lookup,removeFromScope){
 
       var zRestingOffset = -0.8;
-      var zAnimOffset = 0.25;
+      var zAnimOffset = -0.25;
 
       var models = Pregenerated(choices.length);
 
@@ -277,7 +282,7 @@ function MenuScene(){
         var material =
         new THREE.MeshBasicMaterial( {
             color: interpColor(0.1,royalBlue,0xffffff)
-          , opacity:screenOpacity
+          , opacity:0.0
           } );
 
         material.transparent = true;
@@ -302,6 +307,7 @@ function MenuScene(){
         var material = new THREE.MeshBasicMaterial( { color: interpColor(0.15,royalBlue,0x0) } );
 
         material.transparent = true;
+        material.opacity = 0.0;
         material.side = THREE.BackSide;
 
         var mesh = new THREE.Mesh( geometry, material );
@@ -319,7 +325,7 @@ function MenuScene(){
         }
       });
 
-      addToScope(animate(200,function(p){
+      addToScope(animate(350,function(p){
 
         screen.material.opacity = interp(p,0.0,screenOpacity);
         skeleton.material.opacity = interp(p,0.0,skeletonOpacity);
@@ -340,11 +346,10 @@ function MenuScene(){
         obj:[screen,skeleton],
         handle:function(v){
 
-          addToScope(animate(150,function(p){
+          addToScope(animate(300,function(p){
             function mods(o,m){
               m.material.opacity = interp(p,o,0.0);
               m.position.z = interp(p,zRestingOffset,zAnimOffset);
-              m.material.needsUpdate = true;
             }
 
             mods(screenOpacity,screen);
@@ -475,18 +480,24 @@ function MenuScene(){
       var sphereTarget = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({visible:false}));
 
       var icon = texPlane(0.60,0.60,textures['menu.png']);
+      var shadow = texPlane(0.65,0.69,textures['shadow.png']);
+      shadow.material.opacity = 0.6;
 
-      function setPosition(s,y){
-        s.position.x = coords[0];
-        s.position.z = coords[1];
+      function setPosition(s,x,y,z){
+        s.position.x = coords[0] + x;
         s.position.y = coords[2] + y;
+        s.position.z = coords[1] + z;
       }
 
-      setPosition(sphereVisible,0);
-      setPosition(sphereTarget,0);
-      setPosition(icon,0.001);
+      setPosition(sphereVisible,0,0.01,0);
+      setPosition(sphereTarget,0,0,0);
+      setPosition(icon,0,0.011,0);
+      setPosition(shadow,0,0.001,-0.028);
+
+      var shadowz = shadow.position.z;
 
       icon.lookAt({x:0,y:999999,z:0});
+      shadow.lookAt({x:0,y:999999,z:0});
 
       var lightExplodeColor1 = interpColor(0.8,royalBlue,0xffffff);
       var lightExplodeColor2 = interpColor(0.5,royalBlue,0xffffff);
@@ -503,13 +514,15 @@ function MenuScene(){
           sphereVisible.scale.set(s,s,s);
           icon.scale.set(s,s,s);
           material.opacity = interp(p,0.0,1.0);
+          shadow.material.opacity = interp(p,0.0,0.6);
+          icon.material.opacity = interp(p,0.0,1.0);
 
           light.color = interpColor(p,curColor,lightExplodeColor1);
 
         },true));
 
         addToScope(focusFire(600,sphereTarget,function(p,i){
-          var s = interp(p,1.0,0.65);
+          var s = interp(p,1.0,0.85);
           material.opacity = i ? 0.7 : 1.0;
           sphereVisible.scale.set(s,s,s);
           icon.scale.set(s,s,s);
@@ -528,7 +541,7 @@ function MenuScene(){
         material.opacity = 1.0;
 
         addToScope(animate(400,function(p){
-          var s = interp(p,0.65,1.0,Bezier(.33,3.78,.79,1.93));
+          var s = interp(p,0.85,1.0,Bezier(.33,1.78,.79,1.23));
           sphereVisible.scale.set(s,s,s);
           icon.scale.set(s,s,s);
         }));
@@ -537,11 +550,14 @@ function MenuScene(){
 
           addToScope(animate(150,function(p){
 
-            var s = interp(p,1.0,0.001);
+            var s = interp(p,1.0,0.5);
 
             sphereVisible.scale.set(s,s,s);
             icon.scale.set(s,s,s);
+            shadow.scale.set(s,s,s);
             material.opacity = interp(p,1.0,0.0);
+            shadow.material.opacity = interp(p,0.6,0.0);
+            icon.material.opacity = interp(p,1.0,0.0);
 
             if(material.opacity < 0.05){
               material.visible = false;
@@ -563,10 +579,12 @@ function MenuScene(){
       }
 
       return {
-          obj:[sphereVisible,sphereTarget,icon]
+          obj:[sphereVisible,sphereTarget,icon,shadow]
         , handle:ballHandler
         , update:function(){
-
+          shadow.scale.x = clamp(1.0 - (1.0 -sphereVisible.scale.x)*1.00,0.0,1.02);
+          shadow.scale.y = sphereVisible.scale.y <= 1.0 ? 1.0 - (1.0 - sphereVisible.scale.y)*1.4 : 1.0 - (1.0 - sphereVisible.scale.y)*1.1;
+          shadow.position.z = shadowz + 0.05 * (1.0 - clamp(sphereVisible.scale.y,0.0,1.0));
         }
       }
     }
@@ -576,7 +594,7 @@ function MenuScene(){
 
   return {
     shaders:[],
-    textures:choiceTextures.concat(['lookdown.png','lookdown_icon.png','menu.png']),
+    textures:choiceTextures.concat(['lookdown.png','lookdown_icon.png','menu.png','shadow.png']),
     scene:function(shaders_,textures_){
 
       shaders = shaders_;
