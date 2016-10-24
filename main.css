@@ -58,18 +58,18 @@ canvas {
 
 #buttons * {
   border-radius:5px;
-  background:rgba(0,118,243,0.5);
+  background:rgba(0,118,243,0.75);
   padding:3px 15px;
   color:#eee;
 }
 
 #buttons :disabled {
-  background:rgba(0,118,243,0.4);
-  color:#ddd;
+  background:rgba(75,75,75,0.5);
+  color:#bababa;
 }
 
 #buttons :enabled:hover {
-  background:rgba(0,118,243,0.6);
-  color:#fff;
+  background:rgba(0,118,243,0.47);
+  color:rgba(255,255,255,0.65);
   cursor:pointer;
 }
