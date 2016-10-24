@@ -206,7 +206,7 @@ function MenuScene(){
       addToScope(animate(350,function(p){
         material.opacity = interp(p,0.0,0.8);
         m.material.opacity = interp(p,0.0,0.8);
-      }));
+      },0));
 
       var result;
 
@@ -232,7 +232,7 @@ function MenuScene(){
             addToScope(animate(350,function(p){
               var s = interp(p,0.75,1.0,Bezier(.33,1.78,.79,1.33));
               m.scale.set(s,s,s);
-            }));
+            },0));
 
             return function(_){
 
@@ -240,7 +240,7 @@ function MenuScene(){
                 var s = interp(p,1.0,0.2);
                 m.scale.set(s,s,s);
                 m.material.opacity = interp(p,1.0,0.0);
-              }));
+              },0));
 
               return function(_){
                 result = v;
@@ -338,7 +338,7 @@ function MenuScene(){
             x.object.obj[i].position.z = interp(p,zAnimOffset,zRestingOffset);
           }
         });
-      },true));
+      }));
 
       var result;
 
@@ -356,7 +356,7 @@ function MenuScene(){
             mods(skeletonOpacity,skeleton);
 
             panels.filterMap(lookup).forEach(function($0){mods(0.5,$0.object.obj[0])});
-          }));
+          },0));
 
           return function(_){
             result = v;
@@ -369,7 +369,7 @@ function MenuScene(){
     }
   }
 
-  function animate(duration,iteration,silent){
+  function animate(duration,iteration,value){
     return function(addToScope,lookup,removeFromScope){
 
       var s = {
@@ -385,10 +385,39 @@ function MenuScene(){
           s.i = clamp(s.i + (delta / duration),0,1);
           try{iteration(s.i);}catch(e){}finally{
 
-            if(s.i === 1.0 && silent !== true){
-              return true;
-            }else if(s.i === 1.0 && silent === true){
-              s.done = true;
+            if(s.i === 1.0){
+              if(value !== undefined){
+                return value;
+              }else{
+                s.done = true;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function pingPongAnimate(duration,iteration){
+    return function(addToScope,lookup,removeFromScope){
+
+      var s = {
+        i:0,
+        forward:true
+      };
+
+      return {
+        update:function(_,delta){
+          if(s.done){
+            return
+          }
+          s.i = clamp(s.forward ? s.i + (delta / duration) : s.i - (delta / duration),0,1);
+          try{iteration(s.i);}catch(e){}finally{
+
+            if(s.i === 1.0 && s.forward){
+              s.forward = false;
+            }else if(s.i === 0.0 && !s.forward){
+              s.forward = true;
             }
           }
         }
@@ -436,7 +465,7 @@ function MenuScene(){
     text.position.x = 0.35;
     icon.position.x = -1.3;
 
-    addToScope(animate(400,function(p){}));
+    addToScope(animate(400,function(p){},0));
 
     return {
         obj:[background]
@@ -448,7 +477,7 @@ function MenuScene(){
           background.material.opacity = interp(p,0.0,1.0);
           text.material.opacity = interp(p,0.0,1.0);
           icon.material.opacity = interp(p,0.0,1.0);
-        },true));
+        }));
 
         return function(){}
       }
@@ -480,8 +509,11 @@ function MenuScene(){
       var sphereTarget = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({visible:false}));
 
       var icon = texPlane(0.60,0.60,textures['menu.png']);
-      var shadow = texPlane(0.65,0.69,textures['shadow.png']);
-      shadow.material.opacity = 0.6;
+      icon.renderOrder = 4;
+      var shadow = texPlane(0.65,0.65,textures['shadow.png']);
+      var shadowOpacity = 0.65;
+
+      shadow.material.opacity = shadowOpacity;
 
       function setPosition(s,x,y,z){
         s.position.x = coords[0] + x;
@@ -489,10 +521,10 @@ function MenuScene(){
         s.position.z = coords[1] + z;
       }
 
-      setPosition(sphereVisible,0,0.01,0);
+      setPosition(sphereVisible,0,0.013,0);
       setPosition(sphereTarget,0,0,0);
-      setPosition(icon,0,0.011,0);
-      setPosition(shadow,0,0.001,-0.028);
+      setPosition(icon,0,0.014,0);
+      setPosition(shadow,0,0.01,0.004);
 
       var shadowz = shadow.position.z;
 
@@ -503,7 +535,29 @@ function MenuScene(){
       var lightExplodeColor2 = interpColor(0.5,royalBlue,0xffffff);
       var lightExplodeColor3 = interpColor(0.6,royalBlue,0xffffff);
 
+      var baseSVY = sphereVisible.position.y;
+      var baseICY = icon.position.y;
+      var baseSHZ = shadow.position.z;
+
       function activateBall(){
+
+        (function(){
+          // hover animation to accent depth
+
+          var magnitude = 0.03;
+
+          addToScope(pingPongAnimate(2000,function(p){
+            sphereVisible.position.y = baseSVY + magnitude * p;
+            icon.position.y = baseICY + magnitude * p;
+            shadow.material.opacity = shadowOpacity - 0.12 * p;
+            shadow.position.z = baseSHZ + magnitude * 0.02 * (p * p);
+
+            var s = 0.98 + 0.012 * (p * p);
+
+            shadow.scale.set(s,s,s);
+          }));
+
+        })();
 
         var curColor = light.color;
 
@@ -514,17 +568,16 @@ function MenuScene(){
           sphereVisible.scale.set(s,s,s);
           icon.scale.set(s,s,s);
           material.opacity = interp(p,0.0,1.0);
-          shadow.material.opacity = interp(p,0.0,0.6);
+          shadow.material.opacity = interp(p,0.0,shadowOpacity);
           icon.material.opacity = interp(p,0.0,1.0);
 
           light.color = interpColor(p,curColor,lightExplodeColor1);
 
-        },true));
+        }));
 
         addToScope(focusFire(600,sphereTarget,function(p,i){
           var s = interp(p,1.0,0.85);
           material.opacity = i ? 0.7 : 1.0;
-          sphereVisible.scale.set(s,s,s);
           icon.scale.set(s,s,s);
           light.color = interpColor(p,lightExplodeColor1,lightExplodeColor2);
         }));
@@ -542,9 +595,8 @@ function MenuScene(){
 
         addToScope(animate(400,function(p){
           var s = interp(p,0.85,1.0,Bezier(.33,1.78,.79,1.23));
-          sphereVisible.scale.set(s,s,s);
           icon.scale.set(s,s,s);
-        }));
+        },0));
 
         return function(){
 
@@ -556,7 +608,7 @@ function MenuScene(){
             icon.scale.set(s,s,s);
             shadow.scale.set(s,s,s);
             material.opacity = interp(p,1.0,0.0);
-            shadow.material.opacity = interp(p,0.6,0.0);
+            shadow.material.opacity = interp(p,shadowOpacity,0.0);
             icon.material.opacity = interp(p,1.0,0.0);
 
             if(material.opacity < 0.05){
@@ -564,7 +616,7 @@ function MenuScene(){
             }
 
             light.color = interpColor(p,lightExplodeColor2,lightExplodeColor3,Bezier(.33,2.78,.79,1.93));
-          }));
+          },0));
 
           return function(){
 
@@ -582,9 +634,9 @@ function MenuScene(){
           obj:[sphereVisible,sphereTarget,icon,shadow]
         , handle:ballHandler
         , update:function(){
-          shadow.scale.x = clamp(1.0 - (1.0 -sphereVisible.scale.x)*1.00,0.0,1.02);
-          shadow.scale.y = sphereVisible.scale.y <= 1.0 ? 1.0 - (1.0 - sphereVisible.scale.y)*1.4 : 1.0 - (1.0 - sphereVisible.scale.y)*1.1;
-          shadow.position.z = shadowz + 0.05 * (1.0 - clamp(sphereVisible.scale.y,0.0,1.0));
+          // shadow.scale.x = clamp(1.0 - (1.0 -sphereVisible.scale.x)*1.00,0.0,1.02);
+          // shadow.scale.y = sphereVisible.scale.y <= 1.0 ? 1.0 - (1.0 - sphereVisible.scale.y)*1.4 : 1.0 - (1.0 - sphereVisible.scale.y)*1.1;
+          // shadow.position.z = shadowz + 0.05 * (1.0 - clamp(sphereVisible.scale.y,0.0,1.0));
         }
       }
     }
