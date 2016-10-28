@@ -1,6 +1,11 @@
 [![header](http://i.imgur.com/Qfdbkep.png)](http://ramotion.github.io/vr-menu-demo/main.html)
 
+
+
 ## WebVR Menu Demo
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c502012bcb1b4e90a7255e6ce47e5b1a)](https://www.codacy.com/app/juri-v/vr-menu-demo?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Ramotion/vr-menu-demo&amp;utm_campaign=Badge_Grade)
+[![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
+[![Travis](https://img.shields.io/travis/Ramotion/vr-menu-demo.svg)](https://travis-ci.org/Ramotion/vr-menu-demo)
 
 Prototype of a menu system in Virtual Reality controlled using only the user's gaze! Requires a cutting-edge browser and a Google Cardboard (or similarly compatible) device. While current browser support for native VR headsets (Vive/Oculus) is poor, it should rapidly improve in the near future. When it does, this demo should support them, too.
 
