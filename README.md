@@ -7,6 +7,8 @@
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
 [![Travis](https://img.shields.io/travis/Ramotion/vr-menu-demo.svg)](https://travis-ci.org/Ramotion/vr-menu-demo)
 
+![preview](./preview.gif)
+
 ## About
 This project is maintained by Ramotion, Inc.<br>
 We specialize in the designing and coding of custom UI for Mobile Apps, Websites and VR.<br><br>**Looking for developers for your project?** [[▶︎CONTACT OUR TEAM◀︎](http://business.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=vr-menu-demo-contact-us/#Get_in_Touch)]
