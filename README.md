@@ -7,7 +7,7 @@
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
 [![Travis](https://img.shields.io/travis/Ramotion/vr-menu-demo.svg)](https://travis-ci.org/Ramotion/vr-menu-demo)
 
-![preview](./preview.gif)
+[![preview](./preview.gif)](https://ramotion.github.io/vr-menu-demo/main.html)
 
 ## About
 This project is maintained by Ramotion, Inc.<br>
