@@ -1,5 +1,5 @@
 [![header](./header.png)](https://business.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=vr-menu-demo)
-
+[![preview](./preview.gif)](https://ramotion.github.io/vr-menu-demo/main.html)
 
 
 ## WebVR Menu Demo
@@ -7,13 +7,18 @@
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
 [![Travis](https://img.shields.io/travis/Ramotion/vr-menu-demo.svg)](https://travis-ci.org/Ramotion/vr-menu-demo)
 
-[![preview](./preview.gif)](https://ramotion.github.io/vr-menu-demo/main.html)
+
 
 ## About
 This project is maintained by Ramotion, Inc.<br>
-We specialize in the designing and coding of custom UI for Mobile Apps, Websites and VR.<br><br>**Looking for developers for your project?** 
+We specialize in the designing and coding of custom UI for Mobile Apps and Websites.<br>
 
-<a href="https://business.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=vr-menu-demo-contact-us/#Get_in_Touch" > <img src="https://github.com/Ramotion/navigation-stack/raw/master/contact_our_team@2x.png" width="150" height="30"></a>
+**Looking for developers for your project?**<br>
+This project is maintained by Ramotion, Inc. We specialize in the designing and coding of custom UI for Mobile Apps and Websites.
+
+<a href="https://ramotion.com/?utm_source=gthb&utm_medium=special&utm_campaign=vr-menu-demo-contact-us/#Get_in_Touch"> 
+<img src="https://github.com/ramotion/gliding-collection/raw/master/contact_our_team@2x.png" width="187" height="34"></a> <br>
+
 
 Prototype of a menu system in Virtual Reality controlled using only the user's gaze! Requires a cutting-edge browser and a Google Cardboard (or similarly compatible) device. While current browser support for native VR headsets (Vive/Oculus) is poor, it should rapidly improve in the near future. When it does, this demo should support them, too.
 
@@ -27,7 +32,16 @@ To run this demo yourself, simply start a static file server (e.g., with [Node](
 
 This project is written using [Three.js](https://github.com/mrdoob/three.js) and [WebVR Polyfill](https://github.com/googlevr/webvr-polyfill). A microframework in [main.js](https://github.com/Ramotion/vr-menu-demo/blob/master/main.js) declares a [Rust](https://github.com/rust-lang/rust)-inspired ownership model for handling 3D scenes and takes cares of meta-concerns like dependency retrieval, fullscreen/VR swapping, and rendering calls. The scene itself is in [MenuScene.js](https://github.com/Ramotion/vr-menu-demo/blob/master/MenuScene.js) and declares the 3D content and interactions.
 
-## Follow Us
+# Get the Showroom App for iOS to give it a try
+Try our UI components in our iOS app. Contact us if interested.
 
+<a href="https://itunes.apple.com/app/apple-store/id1182360240?pt=550053&ct=vr-menu-demo&mt=8" > 
+<img src="https://github.com/ramotion/gliding-collection/raw/master/app_store@2x.png" width="117" height="34"></a>
+<a href="https://ramotion.com/?utm_source=gthb&utm_medium=special&utm_campaign=vr-menu-demo-contact-us/#Get_in_Touch"> 
+<img src="https://github.com/ramotion/gliding-collection/raw/master/contact_our_team@2x.png" width="187" height="34"></a>
+<br>
+<br>
+Follow us for the latest updates 
+<br>
 [![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=https://github.com/ramotion/vr-menu-demo)
 [![Twitter Follow](https://img.shields.io/twitter/follow/ramotion.svg?style=social)](https://twitter.com/ramotion)
