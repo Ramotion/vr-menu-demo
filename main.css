@@ -1,0 +1,75 @@
+* {
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-width: 0px;
+  border-color: white;
+  border-style: solid;
+  font-family: -apple-system, BlinkMacSystemFont, "Droid Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  font-style: normal;
+  line-height: 125%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html, body {
+  height:100%;
+  width:100%;
+}
+
+body {
+  background-color: rgba(39, 39, 39, 1.0);
+  color: rgba(79, 79, 79, 1.0)
+}
+
+#screenWrapper {
+  position:relative;
+  /* max-width:430px;*/
+  margin-left:auto;
+  margin-right:auto;
+  height:100%;
+}
+
+#screen {
+  position:relative;
+  min-width:320px;
+  height:100%;
+  width:100%;
+  background:black;
+}
+
+/* yes, this is actually necessary... mobile safari... */
+canvas {
+  padding:0px !important;
+}
+
+#buttons {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  padding:3px;
+  margin:2px;
+}
+
+#buttons * {
+  border-radius:5px;
+  background:rgba(0,118,243,0.75);
+  padding:3px 15px;
+  color:#eee;
+}
+
+#buttons :disabled {
+  background:rgba(75,75,75,0.5);
+  color:#bababa;
+}
+
+#buttons :enabled:hover {
+  background:rgba(0,118,243,0.47);
+  color:rgba(255,255,255,0.65);
+  cursor:pointer;
+}

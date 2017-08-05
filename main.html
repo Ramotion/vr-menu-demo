@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>WebVR Menu Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="icon" type="image/png" href="https://ramotion.com/favicon-32x32.png" sizes="32x32">
+
+  <link rel='stylesheet' type='text/css' href='main.css' />
+
+  <script>
+    WebVRConfig = {
+      BUFFER_SCALE: 1.0,
+    };
+  </script>
+
+  <script src="deps/three.min.js"></script>
+  <script src="deps/VRControls.js"></script>
+  <script src="deps/VREffect.js"></script>
+  <script src="deps/webvr-polyfill.js"></script>
+
+  <script src="Utilities.js"></script>
+  <script src="MenuScene.js"></script>
+  <script src="main.js"></script>
+
+</head>
+
+<body onload="main(document.getElementById('screen'),MenuScene())">
+  <div id="screenWrapper">
+    <div id="screen">
+    </div>
+  </div>
+  <div id="buttons">
+    <button id="fullscreen">Fullscreen</button>
+    <button id="vr">VR (WebVR/Mobile only)</button>
+  </div>
+</body>
+</html>

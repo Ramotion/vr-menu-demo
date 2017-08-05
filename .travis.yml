@@ -1,0 +1,9 @@
+language: node_js
+
+script:
+  - bash ./deploy-to-gh-pages.sh
+env:
+  global:
+    - GITHUB_REPO: "Ramotion/vr-menu-demo"
+    - secure: "HIigcH9YUkwDVqwla+Nz1janutIRlbMzG3Mx3uP9stgIWrlLRTsscdovrkG2QK6LxmKZKJgu6fTIWvFpi08mhApjmMlgBK/AG4y4RkzTzpQfjXLrX+F5GgRqZs7D5owIM9gIrLdfmXDQP1VI9SjQ1gAOqAcYrI/Y8divjQyUKewwPfb3Kf/VxTPix7J6LuRGoQOqTro9pgHHlHu3Z7EDBlllFn8SmuMV+572jiwTfdyag3rVKmHDfSkb2NHgq9YpVnhFQJ0WIPF5XKr1Y+nR8fwNoaliCBrUTpPV3b4ss9AU3xvckPvhRjd9OvfCu/sRABCQ1ZX4bWWzx64pudApZVZdypkhJXy3UFlU282OK2uFQk935va7GgLyG/iszHPRI4pMN5Zb6eBrdMRwk9napU+APJZTn38/Z0x4rLgi1Var7U3J/Li9suhZcC0BTZyinIpz6Xvj07XvNZWYWqC24HgEmrPEEi0HKHL9tID46AEeiCJ+sTz2tNOCXEavd1pCGZoPe9RPp+HFDzYq8XsUpWhMd6twRM52HtAdNJi6ezzgx7LugMCSJ4BLSLdhxn9qPcROOaqHkRKe8slFeszUaB0vMHiFUpPjVm8Nha8E2axVcNNE1/6d2h0m4VtGuCNZC1iOGX5/ObGMGkGidJy3fHYd875o85VJsG2QHfTsJkY="
+
